@@ -26,19 +26,12 @@ export function RedFog() {
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 180 320"
       >
-        {/* Tower base */}
         <rect x="60" y="160" width="60" height="160" fill="rgba(8,2,2,0.85)" />
-        {/* Tower mid section — narrower */}
         <rect x="70" y="100" width="40" height="70" fill="rgba(8,2,2,0.85)" />
-        {/* Arch cutout in base */}
         <path d="M75 220 Q90 200 105 220 L105 280 L75 280 Z" fill="rgba(60,5,5,0.4)" />
-        {/* Bell tower top */}
         <rect x="74" y="60" width="32" height="45" fill="rgba(8,2,2,0.85)" />
-        {/* Arched opening in bell tower */}
         <path d="M79 70 Q90 60 101 70 L101 90 L79 90 Z" fill="rgba(80,8,8,0.5)" />
-        {/* Spire */}
         <polygon points="90,10 80,60 100,60" fill="rgba(8,2,2,0.85)" />
-        {/* Decorative cross/ornament at spire tip */}
         <rect x="87" y="6" width="6" height="16" fill="rgba(8,2,2,0.9)" />
         <rect x="82" y="10" width="16" height="4" fill="rgba(8,2,2,0.9)" />
       </svg>

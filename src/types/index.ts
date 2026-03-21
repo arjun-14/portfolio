@@ -6,6 +6,8 @@ export interface Project {
   liveUrl?: string
   period: string
   featured?: boolean
+  img?: string
+  height?: number
 }
 
 export interface ExperienceItem {

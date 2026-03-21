@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { OrbitingParticles } from '@/components/landing/OrbitingParticles'
+import { playHover, playClick } from '@/lib/audio'
+import { AmbientPlayer } from '@/components/landing/AmbientPlayer'
 import { RedFog } from '@/components/landing/RedFog'
 import { PinkBranches } from '@/components/landing/PinkBranches'
 import { BlueCrystals } from '@/components/landing/BlueCrystals'
@@ -96,25 +98,21 @@ export function PageLayout({ chapter, children }: PageLayoutProps) {
           <div
             className="flex items-center gap-2.5 group cursor-pointer"
           >
-            <div
-              className="node-pulse flex-shrink-0 rounded-full"
-              style={{
-                width: 7,
-                height: 7,
-                background: cfg.text,
-                opacity: 0.75,
-                boxShadow: `0 0 8px 3px ${cfg.accent}55`,
-              }}
-            />
             <span
-              className="font-mono text-[10px] tracking-[0.2em] uppercase transition-opacity group-hover:opacity-100"
+              className="font-mono text-[10px] tracking-[0.2em] uppercase transition-all duration-300 group-hover:opacity-100"
               style={{ color: cfg.muted }}
+              onMouseEnter={e => { playHover(); e.currentTarget.style.textShadow = `0 0 12px ${cfg.accent}, 0 0 24px ${cfg.accent}88` }}
+              onMouseLeave={e => (e.currentTarget.style.textShadow = 'none')}
+              onClick={() => playClick()}
             >
-              ← Home
+              Home
             </span>
           </div>
         </Link>
       </motion.div>
+
+      {/* Ambient player */}
+      <AmbientPlayer />
 
       {/* Page content */}
       <div className="relative z-10 px-6 py-20 max-w-5xl mx-auto">

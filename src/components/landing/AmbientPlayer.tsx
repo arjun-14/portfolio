@@ -15,7 +15,7 @@ export function AmbientPlayer() {
     if (fadeRef.current) clearInterval(fadeRef.current)
     audio.volume = 0
     fadeRef.current = setInterval(() => {
-      audio.volume = Math.min(audio.volume + 0.01, 0.10)
+      audio.volume = Math.min(audio.volume + 0.02, 0.10)
       if (audio.volume >= 0.10 && fadeRef.current) {
         clearInterval(fadeRef.current)
         fadeRef.current = null
@@ -76,8 +76,21 @@ export function AmbientPlayer() {
     }
     window.addEventListener('pointerdown', handler)
 
+    // Pause when tab loses focus, resume when it comes back
+    const onVisibility = () => {
+      const audio = audioRef.current
+      if (!audio || !started.current) return
+      if (document.hidden) {
+        audio.pause()
+      } else {
+        audio.play().catch(() => {})
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
+
     return () => {
       window.removeEventListener('pointerdown', handler)
+      document.removeEventListener('visibilitychange', onVisibility)
       if (fadeRef.current) clearInterval(fadeRef.current)
       audio.pause()
       audioRef.current = null

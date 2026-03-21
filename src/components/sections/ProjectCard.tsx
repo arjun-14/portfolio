@@ -2,15 +2,17 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, GitBranch, ShieldCheck, ScanSearch, BarChart3, Database, LucideIcon } from 'lucide-react'
-import { Badge } from '@/components/ui/Badge'
+import { ShieldCheck, ScanSearch, BarChart3, Globe, Music, Building2, LucideIcon } from 'lucide-react'
 import { Project } from '@/types'
+import { playHover, playClick } from '@/lib/audio'
 
 const iconMap: Record<string, LucideIcon> = {
-  SafePlate:                  ShieldCheck,
-  TerraLens:                  ScanSearch,
-  'NYC Trips Analytics':      BarChart3,
-  'POS Cloud Database System': Database,
+  SafePlate:                       ShieldCheck,
+  TerraLens:                       ScanSearch,
+  'NYC Trips Analytics':           BarChart3,
+  Portfolio:                       Globe,
+  'Emotion Based Music Player':    Music,
+  'Housing Society Management System': Building2,
 }
 
 interface ProjectCardProps {
@@ -20,92 +22,71 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false)
-  const Icon = iconMap[project.title] ?? Database
+  const Icon = iconMap[project.title] ?? Globe
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -24 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="flex flex-row items-center gap-6 p-6 rounded-2xl transition-colors duration-300"
+      className="relative w-full rounded-2xl overflow-hidden cursor-pointer mb-4 break-inside-avoid flex flex-col items-center justify-center gap-5"
       style={{
-        background: 'var(--page-card-bg)',
-        border: `1px solid ${hovered ? 'rgba(200,60,60,0.55)' : 'var(--page-card-border)'}`,
-        backdropFilter: 'blur(12px)',
+        height: project.height ?? 320,
+        backdropFilter: 'blur(4px)',
+        WebkitBackdropFilter: 'blur(4px)',
+        background: hovered ? 'rgba(200,60,60,0.06)' : 'rgba(10,2,2,0.12)',
+        border: `1px solid ${hovered ? 'rgba(200,60,60,0.55)' : 'rgba(255,255,255,0.07)'}`,
+        transition: 'background 0.25s, border-color 0.25s',
       }}
+      initial={{ opacity: 0, filter: 'blur(10px)' }}
+      animate={{ opacity: 1, filter: 'blur(0px)' }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ scale: 0.97 }}
+      onMouseEnter={() => { setHovered(true); playHover() }}
+      onMouseLeave={() => setHovered(false)}
+      onClick={() => { playClick(); project.githubUrl && window.open(project.githubUrl, '_blank', 'noopener noreferrer') }}
     >
-      {/* Icon column */}
-      <div className="flex-shrink-0 flex items-center justify-center" style={{ width: 80 }}>
-        <motion.div
-          className="flex items-center justify-center rounded-full"
-          animate={{
-            width: 72,
-            height: 72,
-            background: hovered ? 'rgba(200,60,60,0.22)' : 'rgba(200,60,60,0.10)',
-            boxShadow: hovered ? '0 0 28px rgba(200,60,60,0.40)' : '0 0 0px rgba(200,60,60,0)',
-          }}
-          transition={{ duration: 0.25 }}
-        >
-          <Icon size={28} style={{ color: 'var(--page-accent)' }} />
-        </motion.div>
-      </div>
-
-      {/* Content column */}
+      {/* Icon */}
       <motion.div
-        className="flex flex-col gap-2 flex-1 min-w-0"
-        animate={{ x: hovered ? 4 : 0 }}
-        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="flex items-center justify-center rounded-full"
+        animate={{
+          background: hovered ? 'rgba(200,60,60,0.22)' : 'rgba(200,60,60,0.10)',
+          boxShadow: hovered ? '0 0 36px rgba(200,60,60,0.5)' : '0 0 0px transparent',
+          scale: hovered ? 1.1 : 1,
+        }}
+        transition={{ duration: 0.25 }}
+        style={{ width: 64, height: 64 }}
       >
-        <div className="flex items-baseline gap-3 flex-wrap">
-          <h3 className="font-serif text-xl sm:text-2xl font-semibold" style={{ color: 'var(--page-text)' }}>
-            {project.title}
-          </h3>
-          <span className="font-mono text-xs" style={{ color: 'var(--page-muted)' }}>
-            {project.period}
-          </span>
-        </div>
-        <p className="font-sans text-sm leading-relaxed" style={{ color: 'var(--page-muted)' }}>
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-1.5 mt-1">
-          {project.tags.map((tag) => (
-            <Badge key={tag} variant="default">{tag}</Badge>
-          ))}
-        </div>
+        <Icon size={26} style={{ color: 'var(--page-accent)' }} />
       </motion.div>
 
-      {/* Links column */}
-      <div className="flex flex-col gap-3 items-center flex-shrink-0">
-        {project.githubUrl && (
-          <motion.a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            animate={{ opacity: hovered ? 1 : 0.35, color: hovered ? 'var(--page-accent)' : 'var(--page-muted)' }}
-            transition={{ duration: 0.2 }}
-            style={{ color: 'var(--page-muted)' }}
-          >
-            <GitBranch size={18} />
-          </motion.a>
-        )}
-        {project.liveUrl && (
-          <motion.a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Live site"
-            animate={{ opacity: hovered ? 1 : 0.35, color: hovered ? 'var(--page-accent)' : 'var(--page-muted)' }}
-            transition={{ duration: 0.2 }}
-            style={{ color: 'var(--page-muted)' }}
-          >
-            <ExternalLink size={18} />
-          </motion.a>
-        )}
-      </div>
+      {/* Title */}
+      <motion.p
+        className="font-serif font-semibold text-sm text-center px-6 leading-snug"
+        animate={{ color: hovered ? '#ffffff' : 'rgba(245,238,232,0.7)' }}
+        transition={{ duration: 0.2 }}
+      >
+        {project.title}
+      </motion.p>
+
+      {/* Description — slides up from bottom on hover */}
+      {project.description && (
+        <motion.p
+          className="absolute bottom-0 left-0 right-0 px-6 pb-5 font-mono text-[11px] leading-relaxed text-left"
+          style={{ color: 'rgba(245,238,232,0.6)' }}
+          initial={false}
+          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 12 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {project.description}
+        </motion.p>
+      )}
+
+      {/* Hover glow border */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl pointer-events-none"
+        animate={{
+          boxShadow: hovered ? '0 0 50px rgba(200,60,60,0.2)' : 'none',
+        }}
+        transition={{ duration: 0.25 }}
+      />
     </motion.div>
   )
 }

@@ -28,7 +28,7 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.8 }}
       >
-        <MenuNode label="Experience" href="/experience" position="left"   />
+        <MenuNode label="Journey" href="/journey" position="left"   />
         <MenuNode label="Projects"   href="/projects"   position="top"    />
         <MenuNode label="Media Log"  href="/media"      position="bottom" />
         <MenuNode label="Contact"    href="/contact"    position="right"  />
