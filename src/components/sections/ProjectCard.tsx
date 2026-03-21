@@ -69,7 +69,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       {/* Description — slides up from bottom on hover */}
       {project.description && (
         <motion.p
-          className="absolute bottom-0 left-0 right-0 px-6 pb-5 font-mono text-[11px] leading-relaxed text-left"
+          className="absolute bottom-0 left-0 right-0 px-6 pb-5 font-mono text-[11px] font-bold leading-relaxed text-left"
           style={{ color: 'rgba(245,238,232,0.6)' }}
           initial={false}
           animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 12 }}

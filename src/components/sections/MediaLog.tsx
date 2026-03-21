@@ -8,10 +8,10 @@ import { mediaLog } from '@/data/media'
 import { MediaItem } from '@/types'
 
 const categoryLabel: Record<MediaItem['category'], string> = {
-  playing: 'Games',
-  reading: 'Books',
+  playing: 'Playing',
+  reading: 'Reading',
   watching: 'Watching',
-  listening: 'Music',
+  listening: 'Listening',
 }
 
 function MediaCard({ item, index }: { item: MediaItem; index: number }) {

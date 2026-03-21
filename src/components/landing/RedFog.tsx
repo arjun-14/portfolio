@@ -12,11 +12,11 @@ export function RedFog() {
         viewBox="0 0 1440 900"
         style={{ filter: 'blur(40px)', willChange: 'transform', transform: 'translateZ(0)' }}
       >
-        <ellipse cx="200" cy="300" rx="400" ry="250" fill="rgba(180,20,20,0.18)" />
-        <ellipse cx="1200" cy="200" rx="350" ry="200" fill="rgba(140,10,10,0.14)" />
-        <ellipse cx="720" cy="500" rx="500" ry="200" fill="rgba(200,30,30,0.10)" />
-        <ellipse cx="100" cy="700" rx="300" ry="150" fill="rgba(160,15,15,0.12)" />
-        <ellipse cx="1350" cy="650" rx="280" ry="160" fill="rgba(180,20,20,0.10)" />
+        <ellipse cx="200" cy="300" rx="400" ry="250" fill="rgba(180,20,20,0.09)" />
+        <ellipse cx="1200" cy="200" rx="350" ry="200" fill="rgba(140,10,10,0.07)" />
+        <ellipse cx="720" cy="500" rx="500" ry="200" fill="rgba(200,30,30,0.05)" />
+        <ellipse cx="100" cy="700" rx="300" ry="150" fill="rgba(160,15,15,0.06)" />
+        <ellipse cx="1350" cy="650" rx="280" ry="160" fill="rgba(180,20,20,0.05)" />
       </svg>
 
       {/* Dark tower/monument silhouette at bottom center */}
