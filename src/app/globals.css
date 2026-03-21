@@ -3,25 +3,68 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Landing page gradient */
+  --gris-gradient: linear-gradient(180deg, #7B4FA0 0%, #3D5AAA 40%, #0090AA 75%, #00B8C8 100%);
+
+  /* Palette */
+  --accent:    #C9847A;
+  --secondary: #7BAAB3;
+  --tertiary:  #B8A9D9;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Orbit animations for concentric rings and particles */
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbitReverse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* Menu node pulse */
+@keyframes nodePulse {
+  0%, 100% { box-shadow: 0 0 6px 2px rgba(255,255,255,0.4); }
+  50%       { box-shadow: 0 0 14px 5px rgba(255,255,255,0.7); }
+}
+
+.node-pulse {
+  animation: nodePulse 2.8s ease-in-out infinite;
+}
+
+/* Wavy underline (kept for inner pages) */
+.wavy-underline {
+  position: relative;
+  display: inline-block;
+}
+.wavy-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='6' viewBox='0 0 60 6'%3E%3Cpath d='M0 3 Q 7.5 0, 15 3 Q 22.5 6, 30 3 Q 37.5 0, 45 3 Q 52.5 6, 60 3' stroke='%23C9847A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 60px 6px;
+}
+
+/* Chapter-aware group hover — used by section cards */
+.group:hover .g-hover-accent { color: var(--page-accent); }
+
+/* Selection */
+::selection {
+  background: rgba(123,79,160,0.3);
+  color: #fff;
 }
