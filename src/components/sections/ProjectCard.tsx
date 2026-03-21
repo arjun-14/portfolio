@@ -41,7 +41,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       whileHover={{ scale: 0.97 }}
       onMouseEnter={() => { setHovered(true); playHover() }}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => { playClick(); project.githubUrl && window.open(project.githubUrl, '_blank', 'noopener noreferrer') }}
+      onClick={() => { playClick(); if (project.githubUrl) window.open(project.githubUrl, '_blank', 'noopener noreferrer') }}
     >
       {/* Icon */}
       <motion.div

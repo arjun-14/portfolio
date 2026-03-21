@@ -12,7 +12,7 @@ export function WatercolorClouds({ opacity = 1 }: { opacity?: number }) {
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
         className="w-full"
-        style={{ filter: 'blur(18px)' }}
+        style={{ filter: 'blur(18px)', willChange: 'transform', transform: 'translateZ(0)' }}
       >
         {/* Back mist layer */}
         <path

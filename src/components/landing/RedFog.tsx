@@ -10,7 +10,7 @@ export function RedFog() {
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid slice"
         viewBox="0 0 1440 900"
-        style={{ filter: 'blur(40px)' }}
+        style={{ filter: 'blur(40px)', willChange: 'transform', transform: 'translateZ(0)' }}
       >
         <ellipse cx="200" cy="300" rx="400" ry="250" fill="rgba(180,20,20,0.18)" />
         <ellipse cx="1200" cy="200" rx="350" ry="200" fill="rgba(140,10,10,0.14)" />

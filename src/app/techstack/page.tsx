@@ -1,10 +1,10 @@
 import { PageLayout } from '@/components/layout/PageLayout'
-import { Contact } from '@/components/sections/Contact'
+import { Stack } from '@/components/sections/Stack'
 
 export default function ContactPage() {
   return (
     <PageLayout chapter="colorful">
-      <Contact />
+      <Stack />
     </PageLayout>
   )
 }

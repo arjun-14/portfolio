@@ -31,7 +31,7 @@ export default function Home() {
         <MenuNode label="Journey" href="/journey" position="left"   />
         <MenuNode label="Projects"   href="/projects"   position="top"    />
         <MenuNode label="Media Log"  href="/media"      position="bottom" />
-        <MenuNode label="Contact"    href="/contact"    position="right"  />
+        <MenuNode label="Tech Stack" href="/techstack"  position="right"  />
       </motion.div>
 
       {/* Ambient music player */}
