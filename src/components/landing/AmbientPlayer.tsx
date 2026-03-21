@@ -68,13 +68,19 @@ export function AmbientPlayer() {
     audio.volume = 0
     audioRef.current = audio
 
-    // Start on first interaction anywhere except the ambient button itself
+    // Try to autoplay immediately; fall back to first interaction if blocked
     const handler = (e: PointerEvent) => {
       if (buttonRef.current?.contains(e.target as Node)) return
       startAudio()
       window.removeEventListener('pointerdown', handler)
     }
-    window.addEventListener('pointerdown', handler)
+
+    audio.play().then(() => {
+      started.current = true
+      fadeIn(audio)
+    }).catch(() => {
+      window.addEventListener('pointerdown', handler)
+    })
 
     // Pause when tab loses focus, resume when it comes back
     const onVisibility = () => {

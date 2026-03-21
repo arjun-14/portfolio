@@ -101,8 +101,8 @@ export function PageLayout({ chapter, children }: PageLayoutProps) {
             <span
               className="font-mono text-[10px] tracking-[0.2em] uppercase transition-all duration-300 group-hover:opacity-100"
               style={{ color: cfg.muted }}
-              onMouseEnter={e => { playHover(); e.currentTarget.style.textShadow = `0 0 12px ${cfg.accent}, 0 0 24px ${cfg.accent}88` }}
-              onMouseLeave={e => (e.currentTarget.style.textShadow = 'none')}
+              onMouseEnter={e => { playHover(); e.currentTarget.style.color = cfg.accent; e.currentTarget.style.textShadow = `0 0 12px ${cfg.accent}, 0 0 24px ${cfg.accent}88` }}
+              onMouseLeave={e => { e.currentTarget.style.color = cfg.muted; e.currentTarget.style.textShadow = 'none' }}
               onClick={() => playClick()}
             >
               Home
