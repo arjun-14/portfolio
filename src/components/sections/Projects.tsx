@@ -4,6 +4,22 @@ import { motion } from 'framer-motion'
 import { projects } from '@/data/projects'
 import { ProjectCard } from './ProjectCard'
 
+// Bento grid: 3 cols, 3 rows — total height 580px with 12px gaps
+// Row heights: 240px | 190px | 150px
+// Areas:
+//   safe  nyc   port
+//   safe  terra port
+//   safe  house music
+
+const AREA_MAP: Record<string, string> = {
+  'SafePlate':                          'safe',
+  'NYC Trips Analytics':                'nyc',
+  'TerraLens':                          'terra',
+  'Portfolio':                          'port',
+  'Housing Society Management System':  'house',
+  'Emotion Based Music Player':         'music',
+}
+
 export function Projects() {
   return (
     <div className="py-8">
@@ -31,16 +47,26 @@ export function Projects() {
 
       <div
         style={{
-          columns: '3 280px',
-          columnGap: '1rem',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: '240px 190px 150px',
+          gridTemplateAreas: `
+            "safe nyc   port"
+            "safe terra port"
+            "safe house music"
+          `,
+          gap: '12px',
         }}
       >
-        {projects.map((project, i) => (
-          <ProjectCard key={project.title} project={project} index={i} />
-        ))}
+        {projects.map((project, i) => {
+          const area = AREA_MAP[project.title]
+          return (
+            <div key={project.title} style={{ gridArea: area }}>
+              <ProjectCard project={project} index={i} fillHeight />
+            </div>
+          )
+        })}
       </div>
-
-
     </div>
   )
 }

@@ -9,7 +9,7 @@ export const projects: Project[] = [
     featured: true,
     githubUrl: 'https://github.com/arjun-14/safeplate',
     img: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&auto=format',
-    height: 380,
+    height: 440,
   },
   {
     title: 'Portfolio',
@@ -18,7 +18,7 @@ export const projects: Project[] = [
     period: '2026',
     githubUrl: 'https://github.com/arjun-14/portfolio',
     img: 'https://images.unsplash.com/photo-1545670723-196ed0954986?w=600&auto=format',
-    height: 280,
+    height: 240,
   },
   {
     title: 'NYC Trips Analytics',
@@ -27,7 +27,7 @@ export const projects: Project[] = [
     period: 'Jul 2025 – Aug 2025',
     githubUrl: 'https://github.com/arjun-14/nyc_trips_analytics',
     img: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&auto=format',
-    height: 420,
+    height: 400,
   },
   {
     title: 'TerraLens',
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     featured: true,
     githubUrl: 'https://github.com/arjun-14/terralens',
     img: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&auto=format',
-    height: 300,
+    height: 260,
   },
   {
     title: 'Housing Society Management System',
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     period: '2024',
     githubUrl: 'https://github.com/arjun-14/housingsociety',
     img: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=600&auto=format',
-    height: 320,
+    height: 360,
   },
   {
     title: 'Emotion Based Music Player',
@@ -55,6 +55,6 @@ export const projects: Project[] = [
     period: '2025',
     githubUrl: 'https://github.com/arjun-14/emotion_based_music_player',
     img: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&auto=format',
-    height: 360,
+    height: 220,
   },
 ]
