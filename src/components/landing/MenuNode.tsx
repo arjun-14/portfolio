@@ -5,9 +5,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CSSProperties } from 'react'
 import { playHover, playClick } from '@/lib/audio'
-
-// Must match DIAMOND_R in ConcentricRings
-const R = 330
+import { useRadius } from '@/hooks/useRadius'
 
 export type NodePosition = 'top' | 'right' | 'bottom' | 'left'
 
@@ -17,26 +15,31 @@ interface MenuNodeProps {
   position: NodePosition
 }
 
-// Zero-size anchor placed exactly at each diamond corner
-const anchorStyle: Record<NodePosition, CSSProperties> = {
-  top:    { left: '50%', top:  `calc(50% - ${R}px)` },
-  right:  { left: `calc(50% + ${R}px)`, top: '50%'  },
-  bottom: { left: '50%', top:  `calc(50% + ${R}px)` },
-  left:   { left: `calc(50% - ${R}px)`, top: '50%'  },
-}
-
-// Label floats outward from the corner
-const labelStyle: Record<NodePosition, CSSProperties> = {
-  top:    { bottom: 18, left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap' },
-  right:  { left: 18,  top:  '50%', transform: 'translateY(-50%)', whiteSpace: 'nowrap' },
-  bottom: { top:  18,  left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap' },
-  left:   { right: 18, top:  '50%', transform: 'translateY(-50%)', whiteSpace: 'nowrap' },
-}
-
 const RING_RADII = [14, 22, 32]
 
 export function MenuNode({ label, href, position }: MenuNodeProps) {
   const [hovered, setHovered] = useState(false)
+  const R = useRadius()
+  const isMobile = R < 250
+
+  const anchorStyle: Record<NodePosition, CSSProperties> = {
+    top:    { left: '50%', top:  `calc(50% - ${R}px)` },
+    right:  { left: `calc(50% + ${R}px)`, top: '50%'  },
+    bottom: { left: '50%', top:  `calc(50% + ${R}px)` },
+    left:   { left: `calc(50% - ${R}px)`, top: '50%'  },
+  }
+
+  // On mobile, left/right labels flip inward so they don't overflow screen edges
+  const labelStyle: Record<NodePosition, CSSProperties> = {
+    top:    { bottom: 18, left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap' },
+    right:  isMobile
+      ? { right: 18, top: '50%', transform: 'translateY(-50%)', whiteSpace: 'nowrap' }
+      : { left: 18,  top: '50%', transform: 'translateY(-50%)', whiteSpace: 'nowrap' },
+    bottom: { top:  18,  left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap' },
+    left:   isMobile
+      ? { left: 18, top: '50%', transform: 'translateY(-50%)', whiteSpace: 'nowrap' }
+      : { right: 18, top: '50%', transform: 'translateY(-50%)', whiteSpace: 'nowrap' },
+  }
 
   return (
     // Zero-size anchor pinned to the diamond corner

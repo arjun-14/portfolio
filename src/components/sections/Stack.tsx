@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Cloud, CloudCog, BarChart3, BarChart2, Database, Server } from 'lucide-react'
 import {
@@ -10,6 +11,59 @@ import {
   SiDocker, SiJenkins, SiGit,
 } from 'react-icons/si'
 import { DomeGallery, DomeTool } from './DomeGallery'
+
+const categoryOrder = ['Language', 'Data Eng', 'Cloud', 'Analytics', 'DevOps']
+const categoryLabels: Record<string, string> = {
+  'Language': 'Language', 'Data Eng': 'Data Eng',
+  'Cloud': 'Cloud', 'Analytics': 'Analytics', 'DevOps': 'DevOps',
+}
+
+function fade(delay: number) {
+  return {
+    initial: { opacity: 0, y: 12 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const },
+  }
+}
+
+function MobilePills({ tools }: { tools: DomeTool[] }) {
+  return (
+    <div className="space-y-6 mt-4">
+      {categoryOrder.map((cat, ci) => {
+        const catTools = tools.filter(t => t.category === cat)
+        return (
+          <motion.div key={cat} {...fade(0.15 + ci * 0.1)} className="flex gap-6">
+            <div className="w-20 flex-shrink-0 pt-1">
+              <p className="font-serif text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: 'var(--page-muted)' }}>
+                {categoryLabels[cat]}
+              </p>
+            </div>
+            <div className="flex-1 flex flex-wrap gap-2">
+              {catTools.map(tool => {
+                const Icon = tool.icon
+                return (
+                  <span
+                    key={tool.name}
+                    className="flex items-center gap-1.5 font-mono text-[11px] rounded-full px-3 py-1"
+                    style={{
+                      background: 'var(--page-card-bg)',
+                      border: '1px solid var(--page-card-border)',
+                      color: 'var(--page-text)',
+                      backdropFilter: 'blur(8px)',
+                    }}
+                  >
+                    <Icon size={12} style={{ color: tool.color, flexShrink: 0 }} />
+                    {tool.name}
+                  </span>
+                )
+              })}
+            </div>
+          </motion.div>
+        )
+      })}
+    </div>
+  )
+}
 
 const tools: DomeTool[] = [
   { name: 'Python',        category: 'Language',   icon: SiPython,         color: '#3776AB' },
@@ -40,6 +94,14 @@ const tools: DomeTool[] = [
 ]
 
 export function Stack() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   return (
     <div className="max-w-2xl mx-auto pt-4 pb-24">
 
@@ -64,15 +126,19 @@ export function Stack() {
         </p>
       </motion.div>
 
-      {/* Dome */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        style={{ width: '100%', height: 520, position: 'relative' }}
-      >
-        <DomeGallery tools={tools} overlayBlurColor="transparent" fit={0.6} minRadius={520} />
-      </motion.div>
+      {/* Dome (desktop) / Pills (mobile) */}
+      {isMobile ? (
+        <MobilePills tools={tools} />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          style={{ width: '100%', height: 520, position: 'relative' }}
+        >
+          <DomeGallery tools={tools} overlayBlurColor="transparent" fit={0.6} minRadius={520} />
+        </motion.div>
+      )}
 
     </div>
   )

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { projects } from '@/data/projects'
 import { ProjectCard } from './ProjectCard'
@@ -21,6 +22,14 @@ const AREA_MAP: Record<string, string> = {
 }
 
 export function Projects() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   return (
     <div className="py-8">
       {/* Header */}
@@ -45,28 +54,36 @@ export function Projects() {
         </p>
       </motion.div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gridTemplateRows: '240px 190px 150px',
-          gridTemplateAreas: `
-            "safe nyc   port"
-            "safe terra port"
-            "safe house music"
-          `,
-          gap: '12px',
-        }}
-      >
-        {projects.map((project, i) => {
-          const area = AREA_MAP[project.title]
-          return (
-            <div key={project.title} style={{ gridArea: area }}>
-              <ProjectCard project={project} index={i} fillHeight />
-            </div>
-          )
-        })}
-      </div>
+      {isMobile ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {projects.map((project, i) => (
+            <ProjectCard key={project.title} project={project} index={i} />
+          ))}
+        </div>
+      ) : (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateRows: '240px 190px 150px',
+            gridTemplateAreas: `
+              "safe nyc   port"
+              "safe terra port"
+              "safe house music"
+            `,
+            gap: '12px',
+          }}
+        >
+          {projects.map((project, i) => {
+            const area = AREA_MAP[project.title]
+            return (
+              <div key={project.title} style={{ gridArea: area }}>
+                <ProjectCard project={project} index={i} fillHeight />
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

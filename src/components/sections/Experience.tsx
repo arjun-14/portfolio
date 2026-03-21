@@ -38,12 +38,12 @@ function fade(delay: number) {
 
 function TimelineRow({ left, right }: { left: React.ReactNode; right: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3 py-3">
+    <div className="flex items-center gap-3 py-3 flex-wrap">
       <div className="flex items-center flex-shrink-0">
         <span className="text-[13px] font-mono" style={{ color: 'var(--page-text)' }}>{left}</span>
       </div>
-      <div className="flex-1" style={{ borderBottom: '1px solid rgba(45,26,24,0.18)', marginBottom: 1 }} />
-      <div className="flex-shrink-0 flex items-center gap-3 text-right">
+      <div className="flex-1 min-w-4" style={{ borderBottom: '1px solid rgba(45,26,24,0.18)', marginBottom: 1 }} />
+      <div className="flex items-center gap-3 text-right">
         {right}
       </div>
     </div>
@@ -125,7 +125,7 @@ export function Experience() {
               right={
                 <>
                   <span className="font-mono text-[11px]" style={{ color: 'var(--page-muted)' }}>{item.role}</span>
-                  <span className="font-mono text-[10px] tracking-wide w-20 text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
+                  <span className="font-mono text-[10px] tracking-wide text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
                 </>
               }
             />
@@ -143,7 +143,7 @@ export function Experience() {
               right={
                 <>
                   <span className="font-mono text-[11px]" style={{ color: 'var(--page-muted)' }}>{item.role}</span>
-                  <span className="font-mono text-[10px] tracking-wide w-20 text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
+                  <span className="font-mono text-[10px] tracking-wide text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
                 </>
               }
             />

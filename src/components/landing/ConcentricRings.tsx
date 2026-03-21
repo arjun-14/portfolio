@@ -1,10 +1,14 @@
+'use client'
+
 // Concentric rotating circles — GRIS menu aesthetic
 // Two groups rotate at different speeds/directions
 
+import { useRadius } from '@/hooks/useRadius'
+
 const RADII = [80, 150, 230, 330, 450, 600, 780]
-const DIAMOND_R = 330 // inscribe diamond at this radius
 
 export function ConcentricRings() {
+  const R = useRadius()
   return (
     <div
       aria-hidden
@@ -55,7 +59,7 @@ export function ConcentricRings() {
           <circle
             cx={0}
             cy={0}
-            r={DIAMOND_R}
+            r={R}
             fill="none"
             stroke="rgba(255,255,255,0.10)"
             strokeWidth={1}
@@ -63,10 +67,10 @@ export function ConcentricRings() {
 
           {/* Diamond inscribed in the 330px ring */}
           <rect
-            x={-DIAMOND_R * 0.707}
-            y={-DIAMOND_R * 0.707}
-            width={DIAMOND_R * 1.414}
-            height={DIAMOND_R * 1.414}
+            x={-R * 0.707}
+            y={-R * 0.707}
+            width={R * 1.414}
+            height={R * 1.414}
             fill="none"
             stroke="rgba(255,255,255,0.1)"
             strokeWidth={0.8}
@@ -79,8 +83,8 @@ export function ConcentricRings() {
             return (
               <circle
                 key={deg}
-                cx={DIAMOND_R * Math.cos(rad)}
-                cy={DIAMOND_R * Math.sin(rad)}
+                cx={R * Math.cos(rad)}
+                cy={R * Math.sin(rad)}
                 r={4}
                 fill="rgba(255,255,255,0.5)"
               />

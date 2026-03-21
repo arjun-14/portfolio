@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Gamepad2, BookOpen, Tv, Music } from 'lucide-react'
 import { playHover, playClick } from '@/lib/audio'
@@ -101,6 +101,14 @@ function MediaCard({ item, index, fillHeight }: { item: MediaItem; index: number
 }
 
 export function MediaLog() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   return (
     <div className="max-w-2xl mx-auto pt-4 pb-24">
       <motion.div
@@ -123,33 +131,41 @@ export function MediaLog() {
         </p>
       </motion.div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gridTemplateRows: '220px 160px 180px',
-          gridTemplateAreas: `
-            "play read"
-            "play watch"
-            "list watch"
-          `,
-          gap: '12px',
-        }}
-      >
-        {mediaLog.map((item, i) => {
-          const areaMap: Record<MediaItem['category'], string> = {
-            playing:   'play',
-            reading:   'read',
-            watching:  'watch',
-            listening: 'list',
-          }
-          return (
-            <div key={item.category} style={{ gridArea: areaMap[item.category] }}>
-              <MediaCard item={item} index={i} fillHeight />
-            </div>
-          )
-        })}
-      </div>
+      {isMobile ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {mediaLog.map((item, i) => (
+            <MediaCard key={item.category} item={item} index={i} />
+          ))}
+        </div>
+      ) : (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gridTemplateRows: '220px 160px 180px',
+            gridTemplateAreas: `
+              "play read"
+              "play watch"
+              "list watch"
+            `,
+            gap: '12px',
+          }}
+        >
+          {mediaLog.map((item, i) => {
+            const areaMap: Record<MediaItem['category'], string> = {
+              playing:   'play',
+              reading:   'read',
+              watching:  'watch',
+              listening: 'list',
+            }
+            return (
+              <div key={item.category} style={{ gridArea: areaMap[item.category] }}>
+                <MediaCard item={item} index={i} fillHeight />
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
