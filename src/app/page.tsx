@@ -6,7 +6,6 @@ import { OrbitingParticles } from '@/components/landing/OrbitingParticles'
 import { WatercolorClouds } from '@/components/landing/WatercolorClouds'
 import { MenuNode } from '@/components/landing/MenuNode'
 import { AmbientPlayer } from '@/components/landing/AmbientPlayer'
-
 export default function Home() {
   return (
     <div

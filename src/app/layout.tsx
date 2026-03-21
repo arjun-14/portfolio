@@ -19,13 +19,14 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Arjun Adukathil — Data Engineer',
-  description:
-    'Personal portfolio of Arjun Adukathil — Data Engineer, builder, and gamer based in College Station, TX.',
+  title: "Arjun's Portfolio",
   openGraph: {
-    title: 'Arjun Adukathil — Data Engineer',
-    description: 'Data Engineer · Builder · Gamer',
+    title: "Arjun's Portfolio",
     type: 'website',
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
 }
 
