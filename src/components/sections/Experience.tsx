@@ -91,6 +91,15 @@ export function Experience() {
       {/* About — staggered paragraphs */}
       <Section label="About" delay={0.15}>
         <div className="space-y-4">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="font-mono text-[13px] leading-relaxed"
+            style={{ color: 'var(--page-text)' }}
+          >
+            Hi, I&apos;m Arjun Adukathil. Thanks for stopping by.
+          </motion.p>
           {bio.map((para, i) => (
             <motion.p
               key={i}
