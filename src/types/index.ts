@@ -26,7 +26,8 @@ export interface ExperienceItem {
 
 export interface MediaItem {
   title: string
-  subtitle?: string
-  category: 'playing' | 'finished' | 'reading' | 'watching'
-  note?: string
+  creator: string
+  category: 'playing' | 'reading' | 'watching' | 'listening'
+  platform: string
+  platformUrl: string
 }

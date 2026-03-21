@@ -1,32 +1,32 @@
 import { MediaItem } from '@/types'
 
 export const mediaLog: MediaItem[] = [
-  // Currently playing
   {
-    title: 'Currently Playing',
-    subtitle: 'Update me!',
+    title: 'Hollow Knight: Silksong',
+    creator: 'Team Cherry',
     category: 'playing',
-    note: 'Add your current game here',
+    platform: 'Steam',
+    platformUrl: 'https://steamcommunity.com/profiles/76561198326883158/',
   },
-  // Recently finished
   {
-    title: 'GRIS',
-    subtitle: 'Nomada Studio',
-    category: 'finished',
-    note: 'A masterpiece of art and emotion',
-  },
-  // Reading
-  {
-    title: 'Currently Reading',
-    subtitle: 'Update me!',
+    title: 'On Earth We Are Briefly Gorgeous',
+    creator: 'Ocean Vuong',
     category: 'reading',
-    note: 'Add your current book here',
+    platform: 'Goodreads',
+    platformUrl: 'https://www.goodreads.com/user/show/60529153-arjun-narayanan',
   },
-  // Watching
   {
-    title: 'Currently Watching',
-    subtitle: 'Update me!',
+    title: 'Jujutsu Kaisen',
+    creator: 'MAPPA',
     category: 'watching',
-    note: 'Add your current show here',
+    platform: 'TVTime',
+    platformUrl: 'https://tvtime.com/r/3gwJJ',
+  },
+  {
+    title: 'her',
+    creator: 'JVKE',
+    category: 'listening',
+    platform: 'Spotify',
+    platformUrl: 'https://open.spotify.com/user/arjun14081999?si=e77bf5b447704498',
   },
 ]
