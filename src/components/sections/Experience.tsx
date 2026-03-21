@@ -36,7 +36,7 @@ function fade(delay: number) {
   }
 }
 
-function Row({ left, right }: { left: React.ReactNode; right: React.ReactNode }) {
+function TimelineRow({ left, right }: { left: React.ReactNode; right: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 py-3">
       <div className="flex items-center flex-shrink-0">
@@ -88,47 +88,58 @@ export function Experience() {
         </p>
       </motion.div>
 
-      {/* About */}
+      {/* About — staggered paragraphs */}
       <Section label="About" delay={0.15}>
         <div className="space-y-4">
           {bio.map((para, i) => (
-            <p key={i} className="font-mono text-[13px] leading-relaxed text-justify" style={{ color: 'var(--page-text)' }}>
+            <motion.p
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-mono text-[13px] leading-relaxed text-justify"
+              style={{ color: 'var(--page-text)' }}
+            >
               {para}
-            </p>
+            </motion.p>
           ))}
         </div>
       </Section>
 
       {/* Work */}
       <Section label="Work" delay={0.25}>
-        {work.map((item, i) => (
-          <Row
-            key={i}
-            left={item.company}
-            right={
-              <>
-                <span className="font-mono text-[11px]" style={{ color: 'var(--page-muted)' }}>{item.role}</span>
-                <span className="font-mono text-[10px] tracking-wide w-20 text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
-              </>
-            }
-          />
-        ))}
+        <div>
+          {work.map((item, i) => (
+            <TimelineRow
+              key={i}
+              left={item.company}
+              right={
+                <>
+                  <span className="font-mono text-[11px]" style={{ color: 'var(--page-muted)' }}>{item.role}</span>
+                  <span className="font-mono text-[10px] tracking-wide w-20 text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
+                </>
+              }
+            />
+          ))}
+        </div>
       </Section>
 
       {/* Education */}
       <Section label="Education" delay={0.35}>
-        {education.map((item, i) => (
-          <Row
-            key={i}
-            left={item.company}
-            right={
-              <>
-                <span className="font-mono text-[11px]" style={{ color: 'var(--page-muted)' }}>{item.role}</span>
-                <span className="font-mono text-[10px] tracking-wide w-20 text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
-              </>
-            }
-          />
-        ))}
+        <div>
+          {education.map((item, i) => (
+            <TimelineRow
+              key={i}
+              left={item.company}
+              right={
+                <>
+                  <span className="font-mono text-[11px]" style={{ color: 'var(--page-muted)' }}>{item.role}</span>
+                  <span className="font-mono text-[10px] tracking-wide w-20 text-right" style={{ color: 'var(--page-muted)' }}>{item.period}</span>
+                </>
+              }
+            />
+          ))}
+        </div>
       </Section>
 
       {/* Where */}

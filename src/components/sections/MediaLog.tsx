@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Gamepad2, BookOpen, Tv, Music } from 'lucide-react'
 import { playHover, playClick } from '@/lib/audio'
 import { mediaLog } from '@/data/media'
 import { MediaItem } from '@/types'
@@ -14,7 +14,14 @@ const categoryLabel: Record<MediaItem['category'], string> = {
   listening: 'Listening',
 }
 
-function MediaCard({ item, index }: { item: MediaItem; index: number }) {
+const categoryIcon = {
+  playing:   Gamepad2,
+  reading:   BookOpen,
+  watching:  Tv,
+  listening: Music,
+}
+
+function MediaCard({ item, index, fillHeight }: { item: MediaItem; index: number; fillHeight?: boolean }) {
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -25,6 +32,7 @@ function MediaCard({ item, index }: { item: MediaItem; index: number }) {
       whileHover={{ scale: 0.97 }}
       className="relative rounded-2xl p-6 flex flex-col gap-3 cursor-pointer"
       style={{
+        height: fillHeight ? '100%' : undefined,
         background: hovered ? 'rgba(10,40,80,0.65)' : 'var(--page-card-bg)',
         border: `1px solid ${hovered ? 'rgba(74,144,200,0.55)' : 'var(--page-card-border)'}`,
         backdropFilter: 'blur(12px)',
@@ -34,12 +42,15 @@ function MediaCard({ item, index }: { item: MediaItem; index: number }) {
       onMouseLeave={() => setHovered(false)}
       onClick={() => { playClick(); window.open(item.platformUrl, '_blank', 'noopener noreferrer') }}
     >
-      <span
-        className="font-mono text-[10px] tracking-widest uppercase"
-        style={{ color: 'var(--page-muted)' }}
-      >
-        {categoryLabel[item.category]}
-      </span>
+      <div className="flex items-center gap-2">
+        {(() => { const Icon = categoryIcon[item.category]; return <Icon size={13} style={{ color: 'var(--page-muted)' }} /> })()}
+        <span
+          className="font-mono text-[10px] tracking-widest uppercase"
+          style={{ color: 'var(--page-muted)' }}
+        >
+          {categoryLabel[item.category]}
+        </span>
+      </div>
 
       <div>
         <p className="font-serif text-xl font-bold leading-snug" style={{ color: 'var(--page-text)' }}>
@@ -49,6 +60,7 @@ function MediaCard({ item, index }: { item: MediaItem; index: number }) {
           {item.creator}
         </p>
       </div>
+
 
       <div className="flex-1" />
 
@@ -111,10 +123,32 @@ export function MediaLog() {
         </p>
       </motion.div>
 
-      <div className="grid sm:grid-cols-2 gap-6">
-        {mediaLog.map((item, i) => (
-          <MediaCard key={item.category} item={item} index={i} />
-        ))}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: '220px 160px 180px',
+          gridTemplateAreas: `
+            "play read"
+            "play watch"
+            "list watch"
+          `,
+          gap: '12px',
+        }}
+      >
+        {mediaLog.map((item, i) => {
+          const areaMap: Record<MediaItem['category'], string> = {
+            playing:   'play',
+            reading:   'read',
+            watching:  'watch',
+            listening: 'list',
+          }
+          return (
+            <div key={item.category} style={{ gridArea: areaMap[item.category] }}>
+              <MediaCard item={item} index={i} fillHeight />
+            </div>
+          )
+        })}
       </div>
     </div>
   )
