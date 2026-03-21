@@ -1,6 +1,6 @@
-# Arjun Adukathil — Portfolio
+# Arjun's portfolio
 
-A personal portfolio built with Next.js 14, styled after the visual language of the game GRIS — each page has its own color chapter with atmospheric SVG backdrops and smooth Framer Motion transitions.
+A portfolio built with Next.js 14, styled after the visual language of the game GRIS.
 
 ## Stack
 
