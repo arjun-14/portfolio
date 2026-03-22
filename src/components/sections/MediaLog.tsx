@@ -134,7 +134,7 @@ export function MediaLog() {
       {isMobile ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {mediaLog.map((item, i) => (
-            <MediaCard key={item.category} item={item} index={i} />
+            <MediaCard key={item.title} item={item} index={i} />
           ))}
         </div>
       ) : (
@@ -159,7 +159,7 @@ export function MediaLog() {
               listening: 'list',
             }
             return (
-              <div key={item.category} style={{ gridArea: areaMap[item.category] }}>
+              <div key={item.title} style={{ gridArea: areaMap[item.category] }}>
                 <MediaCard item={item} index={i} fillHeight />
               </div>
             )

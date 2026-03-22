@@ -22,7 +22,7 @@ const education = [
 ]
 
 const online = [
-  { label: 'Email', href: 'mailto:arjunadukathil@tamu.edu' },
+  { label: 'Email', href: 'mailto:arjun.adukathil@tamu.edu' },
   { label: 'GitHub', href: 'https://github.com/arjun-14' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/arjun-adukathil/' },
   { label: 'Resume', href: '/Arjun_Adukathil_resume.pdf' },
