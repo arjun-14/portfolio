@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Volume2, VolumeX } from 'lucide-react'
 
+const STORAGE_KEY = 'ambient-muted'
+
 export function AmbientPlayer() {
   const [isPlaying, setIsPlaying] = useState(true)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -47,22 +49,27 @@ export function AmbientPlayer() {
     if (!audio) return
 
     if (!started.current) {
-      // First interaction via the button itself
       startAudio()
       setIsPlaying(true)
+      localStorage.setItem(STORAGE_KEY, 'false')
       return
     }
 
     if (isPlaying) {
       fadeOut(audio, () => audio.pause())
       setIsPlaying(false)
+      localStorage.setItem(STORAGE_KEY, 'true')
     } else {
       audio.play().then(() => fadeIn(audio)).catch(() => { /* autoplay blocked */ })
       setIsPlaying(true)
+      localStorage.setItem(STORAGE_KEY, 'false')
     }
   }
 
   useEffect(() => {
+    const muted = localStorage.getItem(STORAGE_KEY) === 'true'
+    if (muted) setIsPlaying(false)
+
     const audio = new Audio('/ambient.mp3')
     audio.loop = true
     audio.volume = 0
@@ -71,6 +78,10 @@ export function AmbientPlayer() {
     // Always wait for first user interaction — autoplay is unreliable across browsers
     const handler = (e: PointerEvent) => {
       if (buttonRef.current?.contains(e.target as Node)) return
+      if (localStorage.getItem(STORAGE_KEY) === 'true') {
+        window.removeEventListener('pointerdown', handler)
+        return
+      }
       startAudio()
       window.removeEventListener('pointerdown', handler)
     }
