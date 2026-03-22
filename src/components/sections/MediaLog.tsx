@@ -71,6 +71,15 @@ function MediaCard({ item, index, fillHeight }: { item: MediaItem; index: number
         transition={{ duration: 0.25 }}
       />
 
+      {/* Top-right arrow — fades in on hover */}
+      <motion.div
+        className="absolute top-4 right-4 pointer-events-none"
+        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : -4 }}
+        transition={{ duration: 0.2 }}
+      >
+        <ArrowUpRight size={16} style={{ color: 'var(--page-accent)' }} />
+      </motion.div>
+
       <a
         href={item.platformUrl}
         target="_blank"
