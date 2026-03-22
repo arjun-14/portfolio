@@ -94,7 +94,7 @@ const tools: DomeTool[] = [
 ]
 
 export function Stack() {
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState<boolean | null>(null)
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
     check()
@@ -126,8 +126,8 @@ export function Stack() {
         </p>
       </motion.div>
 
-      {/* Dome (desktop) / Pills (mobile) */}
-      {isMobile ? (
+      {/* Dome (desktop) / Pills (mobile) — wait until screen size is known */}
+      {isMobile === null ? null : isMobile ? (
         <MobilePills tools={tools} />
       ) : (
         <motion.div
