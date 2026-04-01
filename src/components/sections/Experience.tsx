@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-import { playHover, playClick } from '@/lib/audio'
+import { playClick } from '@/lib/audio'
 
 const bio = [
   `My dad brought home a computer when I was in first grade. I don't think he expected me to spend every evening glued to it, taking things apart just to see how they worked. That never really stopped.`,
@@ -168,7 +168,7 @@ export function Experience() {
               target={item.href.startsWith('mailto') ? undefined : '_blank'}
               rel="noopener noreferrer"
               className="flex items-center gap-1 group"
-              onMouseEnter={() => playHover()}
+
               onClick={() => playClick()}
             >
               <span

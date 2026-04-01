@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import { useGesture } from '@use-gesture/react'
 import { IconType } from 'react-icons'
 import { LucideIcon } from 'lucide-react'
-import { playHover } from '@/lib/audio'
 import './DomeGallery.css'
 
 type AnyIcon = IconType | LucideIcon
@@ -163,6 +162,7 @@ export function DomeGallery({
       onDragStart: ({ event }) => {
         stopInertia()
         const evt = event as MouseEvent
+        if (mainRef.current) mainRef.current.style.cursor = 'grabbing'
         draggingRef.current = true
         movedRef.current = false
         startRotRef.current = { ...rotationRef.current }
@@ -188,6 +188,7 @@ export function DomeGallery({
           applyTransform(nextX, nextY)
         }
         if (last) {
+          if (mainRef.current) mainRef.current.style.cursor = 'grab'
           draggingRef.current = false
           const [vMagX, vMagY] = velocity as number[]
           const [dirX, dirY] = direction as number[]
@@ -216,7 +217,7 @@ export function DomeGallery({
         ['--overlay-blur-color' as string]: overlayBlurColor,
       }}
     >
-      <main ref={mainRef} className="sphere-main">
+      <main ref={mainRef} className="sphere-main" style={{ cursor: 'grab' }}>
         <div className="stage">
           <div ref={sphereRef} className="sphere">
             {items.map((it, i) => {
@@ -238,7 +239,7 @@ export function DomeGallery({
                 >
                   <div
                     className="item__icon"
-                    onMouseEnter={() => { setHovered(it); playHover() }}
+                    onMouseEnter={() => { setHovered(it) }}
                     onMouseLeave={() => setHovered(null)}
                   >
                     <Icon

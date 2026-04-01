@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { OrbitingParticles } from '@/components/landing/OrbitingParticles'
-import { playHover, playClick } from '@/lib/audio'
+import { playClick } from '@/lib/audio'
 import { AmbientPlayer } from '@/components/landing/AmbientPlayer'
 import { RedFog } from '@/components/landing/RedFog'
 import { PinkBranches } from '@/components/landing/PinkBranches'
@@ -101,7 +101,7 @@ export function PageLayout({ chapter, children }: PageLayoutProps) {
             <span
               className="font-mono text-[10px] tracking-[0.2em] uppercase transition-all duration-300 group-hover:opacity-100"
               style={{ color: cfg.muted }}
-              onMouseEnter={e => { playHover(); e.currentTarget.style.color = cfg.accent; e.currentTarget.style.textShadow = `0 0 12px ${cfg.accent}, 0 0 24px ${cfg.accent}88` }}
+              onMouseEnter={e => { e.currentTarget.style.color = cfg.accent; e.currentTarget.style.textShadow = `0 0 12px ${cfg.accent}, 0 0 24px ${cfg.accent}88` }}
               onMouseLeave={e => { e.currentTarget.style.color = cfg.muted; e.currentTarget.style.textShadow = 'none' }}
               onClick={() => playClick()}
             >

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Gamepad2, BookOpen, Tv, Music } from 'lucide-react'
-import { playHover, playClick } from '@/lib/audio'
+import { playClick } from '@/lib/audio'
 import { mediaLog } from '@/data/media'
 import { MediaItem } from '@/types'
 
@@ -38,7 +38,7 @@ function MediaCard({ item, index, fillHeight }: { item: MediaItem; index: number
         backdropFilter: 'blur(12px)',
         transition: 'background 0.25s, border-color 0.25s',
       }}
-      onMouseEnter={() => { setHovered(true); playHover() }}
+      onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => { playClick(); window.open(item.platformUrl, '_blank', 'noopener noreferrer') }}
     >

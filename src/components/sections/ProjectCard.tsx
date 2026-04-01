@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ShieldCheck, ScanSearch, BarChart3, Globe, Music, Building2, ArrowUpRight, LucideIcon } from 'lucide-react'
 import { Project } from '@/types'
-import { playHover, playClick } from '@/lib/audio'
+import { playClick } from '@/lib/audio'
 
 const iconMap: Record<string, LucideIcon> = {
   SafePlate:                       ShieldCheck,
@@ -40,7 +40,7 @@ export function ProjectCard({ project, index, fillHeight }: ProjectCardProps) {
       animate={{ opacity: 1, filter: 'blur(0px)' }}
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ scale: 0.97 }}
-      onMouseEnter={() => { setHovered(true); playHover() }}
+      onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => { playClick(); if (project.githubUrl) window.open(project.githubUrl, '_blank', 'noopener noreferrer') }}
     >
