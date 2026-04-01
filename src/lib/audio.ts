@@ -3,6 +3,13 @@
 
 let _ctx: AudioContext | null = null
 
+// Resume AudioContext on any user click so it stays running after ambient mute
+if (typeof window !== 'undefined') {
+  window.addEventListener('pointerdown', () => {
+    if (_ctx?.state === 'suspended') _ctx.resume()
+  })
+}
+
 async function getAudioContext(): Promise<AudioContext> {
   if (!_ctx) {
     _ctx = new AudioContext()

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CSSProperties } from 'react'
-import { playHover, playClick } from '@/lib/audio'
+import { playClick } from '@/lib/audio'
 import { useRadius } from '@/hooks/useRadius'
 
 export type NodePosition = 'top' | 'right' | 'bottom' | 'left'
@@ -16,6 +16,7 @@ interface MenuNodeProps {
 }
 
 const RING_RADII = [14, 22, 32]
+const positionDelay: Record<NodePosition, number> = { top: 0, right: 0.6, bottom: 1.2, left: 1.8 }
 
 export function MenuNode({ label, href, position }: MenuNodeProps) {
   const [hovered, setHovered] = useState(false)
@@ -50,10 +51,20 @@ export function MenuNode({ label, href, position }: MenuNodeProps) {
       <Link href={href}>
         <div
           className="relative cursor-pointer"
-          onMouseEnter={() => { setHovered(true); playHover() }}
+          onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           onClick={() => playClick()}
         >
+          {/* Idle pulse — disappears on hover */}
+          {!hovered && (
+            <motion.div
+              className="absolute rounded-full pointer-events-none"
+              style={{ border: '1px solid rgba(255,255,255,0.35)' }}
+              animate={{ width: [10, 48], height: [10, 48], top: [-5, -24], left: [-5, -24], opacity: [0.5, 0] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut', repeatDelay: 1.2, delay: positionDelay[position] }}
+            />
+          )}
+
           {/* Bullseye rings centered on the SVG dot — appear on hover */}
           <AnimatePresence>
             {hovered && RING_RADII.map((r, i) => (
@@ -79,7 +90,7 @@ export function MenuNode({ label, href, position }: MenuNodeProps) {
           <motion.span
             className="absolute font-mono text-xs tracking-[0.25em] uppercase"
             style={{ ...labelStyle[position], color: '#fff' }}
-            animate={{ opacity: hovered ? 1 : 0.22 }}
+            animate={{ opacity: hovered ? 1 : 0.5 }}
             transition={{ duration: 0.2 }}
           >
             {label}
